@@ -1,6 +1,7 @@
+pasar de vs code a github 
 git add (nombre del archivo) 
 git commit -m"(nombre del commit) 
 git push origin (destino/rama) 
 
 
-git pull = trae cambios del remoto al VS code local 
+git pull = trae cambios del github al VS code local 

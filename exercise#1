@@ -1,0 +1,30 @@
+EJERCICIO #1
+def saludar (a,b):
+    c = ((a**2)+(b**2))**(1/2)
+    print("Pa ve:",c)
+    return c+5 
+    
+print("Pa ve 2:",saludar(3,4)) 
+
+
+
+EJERCICIO #2
+#condiciones que tenga entre 18 y 28, tipo de sangre A
+
+def saludar (a,b):
+    #a va a guardar la edad
+    #b va a guardar el tipo de sangre 
+
+    if a >= 18 and a <= 28: 
+        if b == "A":
+            return True
+        
+    return False 
+
+print("el man numero 1:",saludar(19,"A"))
+print("el man numero 2:",saludar(20,"AB"))
+print("el man numero 3:",saludar(19,"A"))
+print("el man numero 4:",saludar(29,"B"))
+print("el man numero 5:",saludar(19,"A"))
+print("el man numero 6:",saludar(19,"A"))
+print("el man numero 7:",saludar(19,"A"))

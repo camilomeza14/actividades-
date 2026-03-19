@@ -1,0 +1,101 @@
+# ==============================================
+# PROGRAMA: Búsqueda Binaria de Productos
+# DESCRIPCIÓN: Busca un producto por su ID
+# usando el algoritmo de búsqueda binaria.
+# Estructura basada en el ejemplo del profesor.
+# ==============================================
+
+
+# ==============================================
+# FUNCIÓN: armar_arreglo
+# Crea y retorna la lista de IDs de productos
+# ya ordenada (requisito de búsqueda binaria)
+# ==============================================
+
+def armar_arreglo():
+    productos = [101, 203, 317, 405, 519, 624, 731, 840, 956, 1023]
+    return productos
+
+
+# ==============================================
+# FUNCIÓN: ecuacion_izq
+# Mueve la búsqueda hacia la izquierda
+# cuando el ID buscado es menor al centro
+# ==============================================
+
+def ecuacion_izq(izq, cen, der):
+    der = cen - 1
+    cen = (izq + der) // 2
+    return der, cen
+
+
+# ==============================================
+# FUNCIÓN: ecuacion_der
+# Mueve la búsqueda hacia la derecha
+# cuando el ID buscado es mayor al centro
+# ==============================================
+
+def ecuacion_der(izq, cen, der):
+    izq = cen + 1
+    cen = (izq + der) // 2
+    return izq, cen
+
+
+# ==============================================
+# FUNCIÓN: buscar_producto
+# Contiene el algoritmo de búsqueda binaria.
+# Recibe el arreglo y el ID a buscar.
+# Retorna True si lo encuentra, False si no.
+# ==============================================
+
+def buscar_producto(A, n):
+    izq = 0
+    der = len(A) - 1
+    cen = (izq + der) // 2
+    encontro = False
+
+    while encontro == False and izq <= der:
+        if A[cen] == n:
+            encontro = True
+        elif A[cen] < n:
+            izq, cen = ecuacion_der(izq, cen, der)
+        else:
+            der, cen = ecuacion_izq(izq, cen, der)
+
+    return encontro
+
+
+# ==============================================
+# PROGRAMA PRINCIPAL
+# Arma el arreglo, pide el ID al usuario
+# y muestra si el producto fue encontrado
+# ==============================================
+
+print("** Busqueda de Producto por ID **")
+
+# Armar el arreglo de IDs disponibles
+A = armar_arreglo()
+
+print("IDs disponibles:", A)
+
+persona = input("Ingrese su nombre: ")
+n       = int(input("Ingrese el ID del producto a buscar:\n-> "))
+
+# Llamar a la función de búsqueda binaria
+encontro = buscar_producto(A, n)
+
+# Mostrar resultado
+if encontro:
+    print("\n" + persona, "\nEl producto con ID", n, "esta disponible.")
+else:
+    print("\nProducto no encontrado.")
+
+# ==============================================
+# RESUMEN GENERAL DEL PROGRAMA
+# armar_arreglo()   → crea la lista de IDs
+# ecuacion_izq()    → mueve búsqueda a la izquierda
+# ecuacion_der()    → mueve búsqueda a la derecha
+# buscar_producto() → ejecuta la búsqueda binaria
+# El while corre hasta encontrar el ID
+# o hasta que izq supera a der (no existe).
+# ==============================================

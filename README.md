@@ -1,4 +1,4 @@
-# 🎓 Riwi School — Programming Journey
+# 🎓 Riwi — Programming Journey
 
 > *A structured record of every project, exercise, and technical challenge completed during my training at **Riwi**, a presential programming school. This repository serves as a living portfolio of my growth as a software developer — from first principles to applied engineering.*
 

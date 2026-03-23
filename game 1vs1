@@ -1,0 +1,105 @@
+import random
+
+# --- Funciones de Lógica ---
+
+def generar_daño(min_daño, max_daño):
+    """Retorna un daño aleatorio dentro del rango."""
+    return random.randint(min_daño, max_daño)
+
+def mostrar_estado(hp_h, pociones, hp_e):
+    """Muestra las barras de vida y el estado actual."""
+    def barra_vida(actual, maximo):
+        bloques = 10
+        llenos = int((actual / maximo) * bloques)
+        llenos = max(0, llenos) # Evita barras negativas
+        return "[" + "#" * llenos + "-" * (bloques - llenos) + "]"
+
+    print("\n" + "="*30)
+    print(f"HÉROE:   {hp_h:>3} HP  {barra_vida(hp_h, 100)}  Pociones: {pociones}")
+    print(f"ENEMIGO: {hp_e:>3} HP  {barra_vida(hp_e, 120)}")
+    print("="*30)
+
+def turno_jugador(hp_e, hp_h, pociones):
+    """Maneja la elección del usuario y retorna los cambios de estado."""
+    while True:
+        print("\n--- Tu Turno ---")
+        print("1. Atacar")
+        print("2. Curar (20 HP)")
+        print("3. Habilidad Especial (50% probabilidad)")
+        opcion = input("Elige una acción (1-3): ")
+
+        if opcion == "1":
+            daño = generar_daño(10, 25)
+            hp_e -= daño
+            print(f"¡Atacas al enemigo y causas {daño} de daño!")
+            return hp_e, hp_h, pociones
+
+        elif opcion == "2":
+            if pociones > 0:
+                hp_h = min(100, hp_h + 20) # No exceder 100 HP
+                pociones -= 1
+                print(f"¡Usaste una poción! Recuperas 20 HP. Te quedan {pociones}.")
+                return hp_e, hp_h, pociones
+            else:
+                print("¡No te quedan pociones! Elige otra opción.")
+        
+        elif opcion == "3":
+            if random.random() < 0.5: # 50% de probabilidad
+                daño = generar_daño(30, 50)
+                hp_e -= daño
+                print(f"¡CRÍTICO! Tu habilidad especial impacta por {daño} de daño.")
+            else:
+                print("¡Fallaste! La habilidad especial no tuvo efecto.")
+            return hp_e, hp_h, pociones
+        
+        else:
+            print("Opción inválida.")
+
+def turno_enemigo(hp_h):
+    """Calcula y aplica el daño del enemigo."""
+    daño = generar_daño(15, 20)
+    hp_h -= daño
+    print(f"\n¡El Enemigo contraataca! Te quita {daño} HP.")
+    return hp_h
+
+def verificar_ganador(hp_h, hp_e):
+    """Determina si el combate ha terminado."""
+    if hp_h <= 0:
+        print("\n--- HAS SIDO DERROTADO ---")
+        return True
+    if hp_e <= 0:
+        print("\n--- ¡VICTORIA! EL ENEMIGO HA CAÍDO ---")
+        return True
+    return False
+
+# --- Bucle Principal del Juego ---
+
+def iniciar_simulador():
+    # Estado inicial
+    hero_hp = 100
+    hero_pociones = 3
+    enemy_hp = 120
+
+    print("¡COMIENZA EL COMBATE!")
+
+    while True:
+        # 1. Mostrar estado
+        mostrar_estado(hero_hp, hero_pociones, enemy_hp)
+
+        # 2. Turno del Jugador
+        enemy_hp, hero_hp, hero_pociones = turno_jugador(enemy_hp, hero_hp, hero_pociones)
+        
+        # Verificar si el enemigo murió tras el ataque del jugador
+        if verificar_ganador(hero_hp, enemy_hp):
+            break
+
+        # 3. Turno del Enemigo
+        hero_hp = turno_enemigo(hero_hp)
+
+        # Verificar si el héroe murió tras el ataque del enemigo
+        if verificar_ganador(hero_hp, enemy_hp):
+            break
+
+# Ejecutar el programa
+if __name__ == "__main__":
+    iniciar_simulador()

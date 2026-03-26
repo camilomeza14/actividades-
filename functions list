@@ -1,0 +1,161 @@
+# ==============================================
+
+# PROGRAMA: Gestión de Coders
+
+# DESCRIPCIÓN: Funciones para agregar, modificar,
+
+# eliminar y buscar coders en un diccionario.
+
+# ==============================================
+
+coders = {
+1: {
+“id”: 1048229292,
+“nombre”: “Jander”,
+“apellido”: “Arguello”,
+“edad”: 30,
+“nvlIngles”: “-A0”
+},
+2: {
+“id”: 1048229296,
+“nombre”: “Luisa”,
+“apellido”: “De la Rosa”,
+“edad”: 19,
+“nvlIngles”: “C30”
+},
+3: {
+“id”: 1048229297,
+“nombre”: “Maria”,
+“apellido”: “Sanchez”,
+“edad”: 19,
+“nvlIngles”: “C1”
+}
+}
+
+# ==============================================
+
+# FUNCIÓN: agregar_coder
+
+# Agrega un nuevo coder al diccionario.
+
+# La llave es el siguiente número disponible.
+
+# ==============================================
+
+def agregar_coder(id, nombre, apellido, edad, nvlIngles):
+nueva_llave = len(coders) + 1
+coders[nueva_llave] = {
+“id”:        id,
+“nombre”:    nombre,
+“apellido”:  apellido,
+“edad”:      edad,
+“nvlIngles”: nvlIngles
+}
+print(“Coder agregado correctamente.”)
+print(coders[nueva_llave])
+
+# ==============================================
+
+# FUNCIÓN: modificar_coder
+
+# Modifica un campo específico de un coder
+
+# buscándolo por su llave en el diccionario.
+
+# ==============================================
+
+def modificar_coder(llave, campo, nuevo_valor):
+if llave in coders:
+if campo in coders[llave]:
+coders[llave][campo] = nuevo_valor
+print(“Coder modificado correctamente.”)
+print(coders[llave])
+else:
+print(“El campo”, campo, “no existe.”)
+else:
+print(“No se encontró un coder con la llave”, llave)
+
+# ==============================================
+
+# FUNCIÓN: eliminar_coder
+
+# Elimina un coder del diccionario
+
+# buscándolo por su llave.
+
+# ==============================================
+
+def eliminar_coder(llave):
+if llave in coders:
+coder_eliminado = coders[llave]
+del coders[llave]
+print(“Coder eliminado correctamente.”)
+print(coder_eliminado)
+else:
+print(“No se encontró un coder con la llave”, llave)
+
+# ==============================================
+
+# FUNCIÓN: buscar_coder
+
+# Busca un coder por su número de documento (id)
+
+# o por su nombre recorriendo el diccionario.
+
+# ==============================================
+
+def buscar_coder(valor):
+encontrado = None
+
+```
+for llave, coder in coders.items():
+    if coder["id"] == valor or coder["nombre"] == valor:
+        encontrado = coder
+
+if encontrado != None:
+    print("Coder encontrado:")
+    print(encontrado)
+else:
+    print("No se encontró ningún coder con ese dato.")
+```
+
+# ==============================================
+
+# EJEMPLOS DE USO
+
+# ==============================================
+
+print(”=== CODERS INICIALES ===”)
+print(coders)
+
+print(”\n=== AGREGAR CODER ===”)
+agregar_coder(100203033, “Camilo”, “Meza”, 20, “B2”)
+
+print(”\n=== MODIFICAR CODER (llave 1, cambiar edad) ===”)
+modificar_coder(1, “edad”, 31)
+
+print(”\n=== BUSCAR POR ID ===”)
+buscar_coder(1048229296)
+
+print(”\n=== BUSCAR POR NOMBRE ===”)
+buscar_coder(“Maria”)
+
+print(”\n=== ELIMINAR CODER (llave 2) ===”)
+eliminar_coder(2)
+
+print(”\n=== CODERS FINALES ===”)
+print(coders)
+
+# ==============================================
+
+# RESUMEN GENERAL DEL PROGRAMA
+
+# agregar_coder()  → agrega un nuevo coder
+
+# modificar_coder()→ cambia un campo específico
+
+# eliminar_coder() → elimina por llave
+
+# buscar_coder()   → busca por id o por nombre
+
+# ==============================================

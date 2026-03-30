@@ -13,7 +13,7 @@ def agregar_coder():
         ide = int(input("Ingrese ID (solo números): "))
         nom = input("Nombre: ")
         ape = input("Apellido: ")
-        cur = input("Curso: ")
+        cur = input("Curso (No. de clan): ")
         sta = input("Estado (Activo/Inactivo): ")
         
         # Validación de edad con bucle interno para evitar errores
@@ -141,8 +141,8 @@ for posicion, datos in coders.items():
     print(f"  • Apellido:  {datos['apellido']}")
     print(f"  • Edad:      {datos['edad']} años")
     print(f"  • Nivel Ing: {datos['nvlIngles']}")
-    print(f"  • Curso :    {datos['curso']}")
-    print(f"  • Estado:    {datos['estado']}")
+    print(f"  • Curso:     {datos['curso']}")
+    print(f"  • Estado (Activo/Inactivo):   {datos['estado']}")
     print("-" * 30)
 
 print("¡Buen trabajo! El sistema ha finalizado con éxito.")

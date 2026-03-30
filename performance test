@@ -1,7 +1,7 @@
 # --- 1. BASE DE DATOS INICIAL ---
 coders = {
     1: {"id": 1048229292, "nombre": "Jander", "apellido": "Arguello", "edad": 30, "nvlIngles": "-A0", "curso": "clan 6", "estado": "activo"},
-    2: {"id": 1048229296, "nombre": "Luisa", "apellido": "De la Rosa", "edad": 19, "nvlIngles": "C30", "Curso": "clan 6", "estado": "inactivo"},
+    2: {"id": 1048229296, "nombre": "Luisa", "apellido": "De la Rosa", "edad": 19, "nvlIngles": "C30", "curso": "clan 6", "estado": "inactivo"},
     3: {"id": 1048229297, "nombre": "Maria", "apellido": "Sanchez", "edad": 19, "nvlIngles": "C1", "curso": "clan 6", "estado": "activo"}
 }
 
@@ -44,6 +44,9 @@ def modificar_informacion():
             # Nombre y Apellido
             coders[pos]["nombre"] = input(f"Nuevo Nombre [{coders[pos]['nombre']}]: ") or coders[pos]["nombre"]
             coders[pos]["apellido"] = input(f"Nuevo Apellido [{coders[pos]['apellido']}]: ") or coders[pos]["apellido"]
+            coders[pos]["curso"] = input(f"Nuevo Curso [{coders[pos]['curso']}]: ") or coders[pos]["curso"]
+            coders[pos]["estado"] = input(f"Nuevo Estado [{coders[pos]['estado']}]: ") or coders[pos]["estado"]
+            
             
             # Edad con validación lógica
             nueva_ed = input(f"Nueva Edad [{coders[pos]['edad']}]: ")
@@ -138,6 +141,8 @@ for posicion, datos in coders.items():
     print(f"  • Apellido:  {datos['apellido']}")
     print(f"  • Edad:      {datos['edad']} años")
     print(f"  • Nivel Ing: {datos['nvlIngles']}")
+    print(f"  • Curso :    {datos['curso']}")
+    print(f"  • Estado:    {datos['estado']}")
     print("-" * 30)
 
 print("¡Buen trabajo! El sistema ha finalizado con éxito.")

@@ -1,0 +1,143 @@
+# --- 1. BASE DE DATOS INICIAL ---
+coders = {
+    1: {"id": 1048229292, "nombre": "Jander", "apellido": "Arguello", "edad": 30, "nvlIngles": "-A0", "curso": "clan 6", "estado": "activo"},
+    2: {"id": 1048229296, "nombre": "Luisa", "apellido": "De la Rosa", "edad": 19, "nvlIngles": "C30", "Curso": "clan 6", "estado": "inactivo"},
+    3: {"id": 1048229297, "nombre": "Maria", "apellido": "Sanchez", "edad": 19, "nvlIngles": "C1", "curso": "clan 6", "estado": "activo"}
+}
+
+# --- 2. FUNCIONES DE GESTIÓN (CRUD) ---
+
+def agregar_coder():
+    print("\n--- [REGISTRAR NUEVO CODER] ---")
+    try:
+        ide = int(input("Ingrese ID (solo números): "))
+        nom = input("Nombre: ")
+        ape = input("Apellido: ")
+        cur = input("Curso: ")
+        sta = input("Estado: ")
+        
+        # Validación de edad con bucle interno para evitar errores
+        ed = -1
+        while ed < 0 or ed > 120:
+            ed = int(input("Edad (0-120): "))
+            if ed < 0 or ed > 120:
+                print("❌ ERROR: La edad debe ser un número positivo entre 0 y 120.")
+        
+        nvl = input("Nivel de Inglés: ")
+        nueva_llave = max(coders.keys()) + 1 if coders else 1
+        coders[nueva_llave] = {"id": ide, "nombre": nom, "apellido": ape, "edad": ed, "nvlIngles": nvl, "curso": cur, "estado": sta}
+        print(f"✅ ¡Éxito! {nom} ha sido registrado.")
+    except ValueError:
+        print("❌ ERROR CRÍTICO: Ingresaste letras en un campo numérico. Operación cancelada.")
+
+def modificar_informacion():
+    print("\n--- [MODIFICAR CUALQUIER DATO] ---")
+    try:
+        pos = int(input("¿Qué posición (llave) desea editar?: "))
+        if coders.get(pos):
+            print(f"Editando a {coders[pos]['nombre']}. (Presione Enter para mantener el dato actual)")
+            
+            # ID
+            nuevo_id = input(f"Nuevo ID [{coders[pos]['id']}]: ")
+            if nuevo_id: coders[pos]["id"] = int(nuevo_id)
+            
+            # Nombre y Apellido
+            coders[pos]["nombre"] = input(f"Nuevo Nombre [{coders[pos]['nombre']}]: ") or coders[pos]["nombre"]
+            coders[pos]["apellido"] = input(f"Nuevo Apellido [{coders[pos]['apellido']}]: ") or coders[pos]["apellido"]
+            
+            # Edad con validación lógica
+            nueva_ed = input(f"Nueva Edad [{coders[pos]['edad']}]: ")
+            if nueva_ed:
+                val_ed = int(nueva_ed)
+                if 0 <= val_ed <= 120: coders[pos]["edad"] = val_ed
+                else: print("⚠️ Edad fuera de rango. No se actualizó este campo.")
+            
+            # Nivel de Inglés
+            coders[pos]["nvlIngles"] = input(f"Nuevo Nivel [{coders[pos]['nvlIngles']}]: ") or coders[pos]["nvlIngles"]
+            
+            print("🔄 Registro actualizado correctamente.")
+        else:
+            print("❌ Esa posición no existe en el sistema.")
+    except ValueError:
+        print("❌ ERROR: Entrada no válida para campos numéricos.")
+
+def eliminar_coder():
+    print("\n--- [ELIMINAR CODER] ---")
+    try:
+        pos = int(input("Ingrese la posición a borrar: "))
+        if coders.get(pos):
+            confirmar = input(f"¿Seguro que desea borrar a {coders[pos]['nombre']}? (si/no): ").lower()
+            if confirmar == "si":
+                eliminado = coders.pop(pos)
+                print(f"🗑️ Registro de {eliminado['nombre']} eliminado.")
+            else:
+                print("⚠️ Eliminación cancelada.")
+        else:
+            print("❌ No se encontró esa posición.")
+    except ValueError:
+        print("❌ ERROR: Debes ingresar un número de posición.")
+
+def buscar_por_id():
+    print("\n--- [BÚSQUEDA POR ID] ---")
+    try:
+        busqueda = int(input("Ingrese el número de ID a buscar: "))
+        encontrado = False
+        for k, v in coders.items():
+            if v["id"] == busqueda:
+                print(f"🔍 ENCONTRADO en Llave {k}: {v}")
+                encontrado = True
+        if not encontrado:
+            print("🚫 El ID ingresado no está registrado.")
+    except ValueError:
+        print("❌ ERROR: El ID debe ser numérico.")
+
+# --- 3. MOTOR DEL SISTEMA (Bucle Infinito con Validación) ---
+
+continuar = "si"
+while continuar == "si":
+    # Validación estricta de opción (1-5)
+    opcion = ""
+    while opcion not in ["1", "2", "3", "4", "5"]:
+        print("\n" + "═"*40)
+        print("      SISTEMA DE GESTIÓN DE CODERS")
+        print("═"*40)
+        print("1. Registrar Coder")
+        print("2. Modificar Datos")
+        print("3. Eliminar Coder")
+        print("4. Buscar por ID")
+        print("5. Salir y Ver Resumen")
+        opcion = input("\nSeleccione una opción (1-5): ")
+        
+        if opcion not in ["1", "2", "3", "4", "5"]:
+            print(f"⚠️ '{opcion}' no es una opción válida. Use números del 1 al 5.")
+
+    if opcion == "1": agregar_coder()
+    elif opcion == "2": modificar_informacion()
+    elif opcion == "3": eliminar_coder()
+    elif opcion == "4": buscar_por_id()
+    elif opcion == "5": break
+
+    # Validación de respuesta si/no
+    respuesta = ""
+    while respuesta not in ["si", "no"]:
+        respuesta = input("\n¿Deseas realizar otra operación? (si/no): ").lower()
+        if respuesta not in ["si", "no"]:
+            print("⚠️ ERROR: Responda 'si' o 'no'.")
+    continuar = respuesta
+
+# --- 4. CIERRE Y RESUMEN DETALLADO ---
+print("\n" + "★"*50)
+print(f"SISTEMA CERRADO. Total de registros finales: {len(coders)}")
+print("★"*50)
+
+# Aquí recorremos cada coder para mostrar TODA su información
+for posicion, datos in coders.items():
+    print(f"Posición: {posicion}")
+    print(f"  • ID:        {datos['id']}")
+    print(f"  • Nombre:    {datos['nombre']}")
+    print(f"  • Apellido:  {datos['apellido']}")
+    print(f"  • Edad:      {datos['edad']} años")
+    print(f"  • Nivel Ing: {datos['nvlIngles']}")
+    print("-" * 30)
+
+print("¡Buen trabajo! El sistema ha finalizado con éxito.")

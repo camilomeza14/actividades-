@@ -162,7 +162,7 @@ print("★"*50)
 
 for pos, data in coders.items():
     print(f"Key: {pos} | ID: {data['id']} | Name: {data['name']} {data['last_name']}")
-    print(f"Age: {data['age']} | Level: {data['english_level']} | Status: {data['status']}")
+    print(f"Age: {data['age']} | Level: {data['english_level']} | Status: {data['status']} | Course: {data['course']}")
     print("-" * 50)
 
-print("\nProcess finished successfully. Good luck with your exam, Camilo!")
+print("\nProcess finished successfully!")

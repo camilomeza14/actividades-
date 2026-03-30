@@ -1,0 +1,168 @@
+# ==============================================================================
+# PROGRAM: CODER MANAGEMENT SYSTEM (CRUD)
+# AUTHOR: Camilo - Python Apprentice
+# TOPICS: if/elif/else, functions, lists, dictionaries, .get(), loops
+# ==============================================================================
+
+# --- 1. INITIAL DATABASE (Using Nested Dictionaries) ---
+coders = {
+    1: {"id": 1048229292, "name": "Jander", "last_name": "Arguello", "age": 30, "english_level": "A0", "course": "clan 6", "status": "active"},
+    2: {"id": 1048229296, "name": "Luisa", "last_name": "De la Rosa", "age": 19, "english_level": "B2", "course": "clan 6", "status": "inactive"},
+    3: {"id": 1048229297, "name": "Maria", "last_name": "Sanchez", "age": 19, "english_level": "C1", "course": "clan 6", "status": "active"}
+}
+
+# --- 2. MANAGEMENT FUNCTIONS ---
+
+def add_coder():
+    print("\n" + "─"*30)
+    print("   [REGISTER NEW CODER]")
+    print("─"*30)
+    try:
+        ide = int(input("Enter ID (numbers only): "))
+        name = input("First Name: ")
+        last = input("Last Name: ")
+        course = input("Course (Clan No.): ")
+        
+        # --- Mandatory Status Validation ---
+        status = ""
+        while status not in ["active", "inactive"]:
+            status = input("Status (active/inactive): ").lower().strip()
+            if status not in ["active", "inactive"]:
+                print("❌ INVALID STATUS: Please type exactly 'active' or 'inactive'.")
+        
+        # Age validation loop
+        age = -1
+        while age < 0 or age > 120:
+            age = int(input("Age (0-120): "))
+            if age < 0 or age > 120:
+                print("❌ ERROR: Age must be between 0 and 120.")
+        
+        level = input("English Level: ")
+        
+        # Logic to generate the next dictionary key
+        new_key = max(coders.keys()) + 1 if coders else 1
+        
+        coders[new_key] = {
+            "id": ide, "name": name, "last_name": last, 
+            "age": age, "english_level": level, 
+            "course": course, "status": status
+        }
+        print(f"\n✅ SUCCESS! {name} has been registered.")
+    except ValueError:
+        print("\n❌ CRITICAL ERROR: Numeric field received invalid characters.")
+
+def update_coder():
+    print("\n" + "─"*30)
+    print("   [UPDATE CODER DATA]")
+    print("─"*30)
+    try:
+        pos = int(input("Enter the position (key) to edit: "))
+        # Using .get() for safe data retrieval
+        coder = coders.get(pos)
+        
+        if coder:
+            print(f"Editing: {coder['name']}. (Press Enter to skip field)")
+            
+            # ID Update
+            new_id = input(f"New ID [{coder['id']}]: ")
+            if new_id: coder["id"] = int(new_id)
+            
+            # String Updates
+            coder["name"] = input(f"New Name [{coder['name']}]: ") or coder["name"]
+            coder["last_name"] = input(f"New Last Name [{coder['last_name']}]: ") or coder["last_name"]
+            coder["course"] = input(f"New Course [{coder['course']}]: ") or coder["course"]
+            
+            # --- Status Validation for Update ---
+            print(f"Current Status: {coder['status']}")
+            new_status = input("New Status (active/inactive) or Enter to skip: ").lower().strip()
+            if new_status: 
+                while new_status not in ["active", "inactive"]:
+                    print("❌ INVALID OPTION.")
+                    new_status = input("Please enter 'active' or 'inactive': ").lower().strip()
+                coder["status"] = new_status
+
+            # Age Update
+            new_age = input(f"New Age [{coder['age']}]: ")
+            if new_age:
+                val_age = int(new_age)
+                if 0 <= val_age <= 120: coder["age"] = val_age
+            
+            coder["english_level"] = input(f"New Level [{coder['english_level']}]: ") or coder["english_level"]
+            print("\n🔄 Record updated successfully.")
+        else:
+            print("❌ ERROR: Position not found.")
+    except ValueError:
+        print("❌ ERROR: Invalid input for numeric fields.")
+
+def delete_coder():
+    print("\n--- [DELETE CODER] ---")
+    try:
+        pos = int(input("Enter the position to delete: "))
+        if coders.get(pos):
+            confirm = input(f"Are you sure you want to delete {coders[pos]['name']}? (yes/no): ").lower()
+            if confirm == "yes":
+                deleted = coders.pop(pos)
+                print(f"🗑️ Record for {deleted['name']} deleted.")
+            else:
+                print("⚠️ Deletion canceled.")
+        else:
+            print("❌ ERROR: Position not found.")
+    except ValueError:
+        print("❌ ERROR: Position must be a number.")
+
+def find_by_id():
+    print("\n--- [SEARCH BY ID] ---")
+    try:
+        query = int(input("Enter the ID to search: "))
+        found = False
+        for key, value in coders.items():
+            if value["id"] == query:
+                print(f"🔍 MATCH FOUND at Key {key}: {value}")
+                found = True
+        if not found:
+            print("🚫 ID not found in database.")
+    except ValueError:
+        print("❌ ERROR: ID must be numeric.")
+
+# --- 3. MAIN SYSTEM ENGINE ---
+
+run = "yes"
+while run == "yes":
+    option = ""
+    while option not in ["1", "2", "3", "4", "5"]:
+        print("\n" + "═"*40)
+        print("      CODER MANAGEMENT SYSTEM")
+        print("═"*40)
+        print("1. Register Coder")
+        print("2. Update Coder")
+        print("3. Delete Coder")
+        print("4. Search by ID")
+        print("5. Exit and Show Summary")
+        option = input("\nSelect an option (1-5): ")
+        
+        if option not in ["1", "2", "3", "4", "5"]:
+            print(f"⚠️ '{option}' is not valid. Choose 1 to 5.")
+
+    if option == "1": add_coder()
+    elif option == "2": update_coder()
+    elif option == "3": delete_coder()
+    elif option == "4": find_by_id()
+    elif option == "5": break
+
+    # Logic to continue or stop
+    ans = ""
+    while ans not in ["yes", "no"]:
+        ans = input("\nDo you want to perform another action? (yes/no): ").lower()
+    run = ans
+
+# --- 4. FINAL CLOSURE AND SUMMARY ---
+print("\n" + "★"*50)
+print(f"SYSTEM CLOSED. Total Records: {len(coders)}")
+print("★"*50)
+
+for pos, data in coders.items():
+    print(f"Key: {pos} | ID: {data['id']} | Name: {data['name']} {data['last_name']}")
+    print(f"Age: {data['age']} | Level: {data['english_level']} | Status: {data['status']}")
+    print("-" * 50)
+
+print("\nProcess finished successfully. Good luck with your exam, Camilo!")

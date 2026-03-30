@@ -1,0 +1,87 @@
+# Coder Management System (CMS) 🚀
+**A Python-based CLI application for student data management.**
+
+## 📌 Overview
+The **Coder Management System** is a lightweight, efficient command-line interface (CLI) tool designed to handle student records (Coders). It allows users to perform full CRUD operations (Create, Read, Update, and Delete) while ensuring data integrity through strict input validation.
+
+---
+
+## 🛠️ Key Features
+- **Smart Registration:** Add new students with automatic ID generation.
+- **Robust Validation:** - Forced choice for Status: Only `active` or `inactive` allowed.
+    - Age range protection (0-120 years).
+    - Numeric input error handling (prevents crashes).
+- **Search Engine:** Find specific records instantly using the unique ID.
+- **Dynamic Updates:** Edit existing information while keeping current values as defaults.
+- **Final Reporting:** Generates a detailed summary of all records upon closing the system.
+
+---
+
+## 🚀 How to Run
+1. Ensure you have **Python 3.x** installed on your machine.
+2. Download or copy the script `main.py`.
+3. Open your terminal or command prompt.
+4. Run the following command:
+   ```bash
+   python main.py
+
+
+
+
+📖 Usage Examples (How the program works)
+1. Registering a New Coder (Option 1) The system asks for data one by one. If you make a mistake in the Status, the program blocks you until you type it correctly.
+Example:
+
+Enter ID: 1050220330
+First Name: Carlos
+Last Name: Perez
+Course: Clan 2
+Status (active/inactive): online
+❌ INVALID STATUS: Please type 'active' or 'inactive'.
+Status (active/inactive): active
+Age: 22
+English Level: B1
+✅ SUCCESS! Carlos has been registered.
+
+
+
+
+2. Updating Information (Option 2) If you want to change only one thing (like the age), you can press Enter on the other fields to keep the old information.
+Example:
+
+Enter the position (key) to edit: 1
+Editing: Jander. (Press Enter to skip field)
+New ID [1048229292]: (Enter)
+New Name [Jander]: (Enter)
+New Last Name [Arguello]: (Enter)
+New Age [30]: 31
+🔄 Record updated successfully.
+
+
+
+
+3. Searching by ID (Option 4) This is useful to find a student quickly using their unique ID number.
+Example:
+
+Enter the ID to search: 1048229297
+🔍 MATCH FOUND at Key 3: {'id': 1048229297, 'name': 'Maria', ...}
+
+
+4. Error Handling (Input Validation) If you type letters in a field that requires numbers (like ID or Age), the system catches the error and doesn't crash.
+Example:
+Enter ID (numbers only): abc
+❌ CRITICAL ERROR: Numeric field received invalid characters.
+(The program returns to the main menu)
+
+
+
+
+
+
+
+
+
+
+
+
+

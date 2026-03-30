@@ -14,7 +14,7 @@ def agregar_coder():
         nom = input("Nombre: ")
         ape = input("Apellido: ")
         cur = input("Curso: ")
-        sta = input("Estado: ")
+        sta = input("Estado (Activo/Inactivo): ")
         
         # Validación de edad con bucle interno para evitar errores
         ed = -1

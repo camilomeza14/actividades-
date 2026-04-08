@@ -1,0 +1,249 @@
+/* ============================================
+   RESET Y VARIABLES GLOBALES
+   ============================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --negro:      #0a0a0a;
+    --blanco:     #fafafa;
+    --acento:     #c8a96e;       /* dorado cálido */
+    --gris-claro: #f4f4f2;
+    --gris-medio: #8a8a8a;
+    --sombra:     0 20px 60px rgba(0,0,0,0.12);
+}
+
+/* ============================================
+   BODY — CENTRADO Y FONDO TEXTURIZADO
+   ============================================ */
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--gris-claro);
+    /* Textura sutil de puntos */
+    background-image: radial-gradient(circle, #d0d0cc 1px, transparent 1px);
+    background-size: 22px 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ============================================
+   TARJETA — ESTRUCTURA PRINCIPAL
+   ============================================ */
+.tarjeta {
+    background-color: var(--blanco);
+    width: 360px;
+    border-radius: 4px;
+    box-shadow: var(--sombra);
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s ease;
+}
+
+.tarjeta:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 35px 80px rgba(0,0,0,0.18);
+}
+
+/* ============================================
+   BANDA SUPERIOR — ACENTO EDITORIAL
+   ============================================ */
+.banda-superior {
+    height: 5px;
+    background: linear-gradient(90deg, var(--negro) 60%, var(--acento) 100%);
+}
+
+/* ============================================
+   HEADER — FOTO E IDENTIDAD
+   ============================================ */
+.tarjeta-header {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 2rem 2rem 1.2rem;
+    border-bottom: 1px solid #ebebeb;
+}
+
+/* Círculo con iniciales en lugar de imagen genérica */
+.foto-perfil {
+    width: 68px;
+    height: 68px;
+    background-color: var(--negro);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iniciales {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--acento);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.identidad {
+    text-align: left;
+}
+
+/* Nombre en tipografía editorial serif */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--negro);
+    line-height: 1.1;
+}
+
+.apellido {
+    color: var(--negro);
+}
+
+.cargo {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--gris-medio);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 0.3rem;
+}
+
+/* ============================================
+   CUERPO — DESCRIPCIÓN, STATS, TAGS
+   ============================================ */
+.tarjeta-cuerpo {
+    padding: 1.5rem 2rem;
+}
+
+.descripcion {
+    font-size: 0.88rem;
+    color: #444;
+    line-height: 1.75;
+    font-weight: 300;
+}
+
+/* --- Stats numéricos --- */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5rem 0 1.4rem;
+    padding: 1.2rem 0;
+    border-top: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+}
+
+.stat-numero {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--negro);
+}
+
+.stat-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gris-medio);
+    font-weight: 500;
+}
+
+/* Línea divisora entre stats */
+.divisor {
+    width: 1px;
+    height: 32px;
+    background-color: #e0e0e0;
+}
+
+/* --- Tags de habilidades --- */
+.habilidades {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background-color: var(--negro);
+    color: var(--blanco);
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ============================================
+   PIE — BOTONES DE ACCIÓN
+   ============================================ */
+.tarjeta-pie {
+    padding: 0 2rem 2rem;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-primario {
+    flex: 1;
+    background-color: var(--negro);
+    color: var(--blanco);
+    border: none;
+    padding: 12px 0;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primario:hover {
+    background-color: var(--acento);
+    color: var(--negro);
+}
+
+.btn-primario:active {
+    transform: scale(0.97);
+}
+
+.btn-secundario {
+    flex: 1;
+    background-color: transparent;
+    color: var(--negro);
+    border: 1.5px solid var(--negro);
+    padding: 12px 0;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secundario:hover {
+    background-color: var(--negro);
+    color: var(--blanco);
+}
+
+/* ============================================
+   FIN DEL ARCHIVO — style.css 
+   Diseño editorial minimalista para tarjeta
+   de perfil profesional — Camilo Meza
+   ============================================ */
